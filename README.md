@@ -1,6 +1,6 @@
 # Tasks API in Go
 
-This is a simple CRUD api for a tasks app.
+This is a simple CRUD api for a tasks app. This project uses `mongo-driver` to connect and work with MongoDB, and `godotenv` package to handle environment variables.
 
 ## Endpoints
 
