@@ -5,6 +5,7 @@ package models
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"example.com/api/db"
@@ -58,4 +59,15 @@ func (t *Task) UpdateTask() {
 // delete task by id
 func (t *Task) DeleteTask() {
 
+}
+
+// get task by id
+func (t *Task) GetTaskById(id string) (*Task, error) {
+	collection := db.InitMongo().Database("GoTaskApi").Collection("tasks")
+	result := collection.FindOne(context.Background(), bson.D{{Key: "_id", Value: id}}).Decode(&t)
+	if result != nil {
+		fmt.Println("Error: ", result)
+		return nil, result
+	}
+	return t, nil
 }

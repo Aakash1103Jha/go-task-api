@@ -32,6 +32,14 @@ func main() {
 }
 
 func getOneTaskById(c *gin.Context) {
+	id := c.Params.ByName("id")
+	var task models.Task
+	var _task, err = task.GetTaskById(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusFound, gin.H{"task": _task})
 }
 func getAllTasks(c *gin.Context) {
 	var tasks models.Task
@@ -47,6 +55,7 @@ func createTaskHandler(c *gin.Context) {
 	err := c.BindJSON(&task)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 	task.Id = string(primitive.NewObjectID().Hex())
 	task.CreateTask()
