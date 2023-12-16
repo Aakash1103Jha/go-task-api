@@ -22,6 +22,7 @@ func main() {
 
 	// define a new route
 	server.GET("/", getAllTasks)
+	server.GET("/:id", getOneTaskById)
 	server.POST("/", createTaskHandler)
 	server.PUT("/:id", updateTaskHandler)
 	server.DELETE("/:id", deleteTaskHandler)
@@ -30,6 +31,8 @@ func main() {
 	server.Run(":4000")
 }
 
+func getOneTaskById(c *gin.Context) {
+}
 func getAllTasks(c *gin.Context) {
 	var tasks models.Task
 	data, err := tasks.GetAllTasks()
